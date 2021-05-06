@@ -1,5 +1,6 @@
 # You can override the included template(s) by including variable overrides
-# See https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#priority-of-environment-variables
 stages:
@@ -8,15 +9,4 @@ sast:
   stage: test
 include:
 - template: Security/SAST.gitlab-ci.yml
----
-# Tip: Insert this part below all stages
-stages:
-- fuzz
-# Tip: Insert this part below all include
-include:
-- template: API-Fuzzing.gitlab-ci.yml
-# Tip: Insert the following variables anywhere below stages and include
-variables:
-  FUZZAPI_TARGET_URL: https://0xwi11.com
-  FUZZAPI_OPENAPI: "/test"
-  FUZZAPI_PROFILE: Medium-20
+- template: Security/Secret-Detection.gitlab-ci.yml
